@@ -1,6 +1,27 @@
-import { IsString } from 'class-validator';
+import { IsString, IsInt } from 'class-validator';
 
 export class AddCharacterRequestDto{
     @IsString()
-    content: string;
+    name: string;
+
+    @IsInt()
+    hitPoints: number;
+
+    @IsInt()
+    strength: number;
+
+    @IsInt()
+    defence: number;
+
+    @IsInt()
+    intelligence: number;
+
+    @IsString()
+    class: string;
+}
+
+export class AddCharacterReturnDto{
+    code: number;
+    success : boolean;
+    request: object;
 }

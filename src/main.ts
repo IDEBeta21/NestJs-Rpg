@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { CharactersModule } from './characters/characters.module';
+import { CharactersModule } from './characters/modules/characters.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(CharactersModule);
