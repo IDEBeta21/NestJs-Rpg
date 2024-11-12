@@ -1,1 +1,29 @@
-{}
+{
+  "47": {
+    "id": 47,
+    "name": "Frodo",
+    "hitPoints": 100,
+    "strength": 100,
+    "defence": 100,
+    "intelligence": 100,
+    "class": "Knight"
+  },
+  "333": {
+    "id": 333,
+    "name": "Devian",
+    "hitPoints": 100,
+    "strength": 100,
+    "defence": 100,
+    "intelligence": 100,
+    "class": "Knight"
+  },
+  "353": {
+    "id": 353,
+    "name": "Ian",
+    "hitPoints": 100,
+    "strength": 100,
+    "defence": 100,
+    "intelligence": 100,
+    "class": "Knight"
+  }
+}

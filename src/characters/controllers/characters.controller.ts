@@ -1,4 +1,9 @@
-import { Controller, Get, Post, Body, Param} from '@nestjs/common';
+import { 
+    Controller, 
+    Get, Post, 
+    Body, Param, 
+    NotFoundException 
+} from '@nestjs/common';
 import { AddCharacterRequestDto } from '../dtos/add-character.dto';
 import { CharactersService } from '../services/characters.services';
 
@@ -7,8 +12,18 @@ export class CharactersController {
     constructor(private characterService: CharactersService){}
 
     @Get('GetAllCharacters')
-    getAllCharacters(){
-        var response = this.characterService.getAllCharacters();
+    async getAllCharacters(){
+        var response = await this.characterService.getAllCharacters();
+
+        //check if the reponse returns null
+        if (JSON.stringify(response) === '{}'){
+            console.log(response);
+            response = {
+                errorMessage: 'No character exist',
+            }
+            throw new NotFoundException(response);
+        }
+
         console.log(response);
         return response;
     }
@@ -22,9 +37,18 @@ export class CharactersController {
     }
 
     @Get('GetCharacterById/:id')
-    getCharacterById(@Param('id') id: string){
-        var response = this.characterService.getCharacterById(id);
+    async getCharacterById(@Param('id') id: string){
+        var response = await this.characterService.getCharacterById(id);
         console.log(response);
+        //check if the reponse returns null
+        if (response === null){
+            console.log(response);
+            response = {
+                errorMessage: 'Id did not match any character',
+            }
+            throw new NotFoundException(response);
+        }
+
         return(response);
     }
 }
