@@ -15,7 +15,7 @@ export class CharactersController {
     async getAllCharacters(){
         var response = await this.characterService.getAllCharacters();
 
-        //check if the reponse returns null
+        //check if the response returns empty object
         if (JSON.stringify(response) === '{}'){
             console.log(response);
             response = {
@@ -31,7 +31,7 @@ export class CharactersController {
     @Post('AddCharacter')
     async addCharacters(@Body() reqBody: AddCharacterRequestDto){
         await this.characterService.AddCharacter(reqBody);
-        var response = this.characterService.getAllCharacters();
+        var response = await this.characterService.getAllCharacters();
         console.log(response);
         return response;
     }
@@ -40,7 +40,8 @@ export class CharactersController {
     async getCharacterById(@Param('id') id: string){
         var response = await this.characterService.getCharacterById(id);
         console.log(response);
-        //check if the reponse returns null
+
+        //check if the response returns null
         if (response === null){
             console.log(response);
             response = {
