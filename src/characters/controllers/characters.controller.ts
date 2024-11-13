@@ -18,10 +18,10 @@ export class CharactersController {
         //check if the response returns empty object
         if (JSON.stringify(response) === '{}'){
             console.log(response);
-            response = {
+            var errorResponse = {
                 errorMessage: 'No character exist',
             }
-            throw new NotFoundException(response);
+            throw new NotFoundException(errorResponse);
         }
 
         console.log(response);

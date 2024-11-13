@@ -25,5 +25,14 @@
     "defence": 100,
     "intelligence": 100,
     "class": "Knight"
+  },
+  "956": {
+    "id": 956,
+    "name": "Katchi",
+    "hitPoints": 100,
+    "strength": 100,
+    "defence": 100,
+    "intelligence": 100,
+    "class": "Mage"
   }
 }
