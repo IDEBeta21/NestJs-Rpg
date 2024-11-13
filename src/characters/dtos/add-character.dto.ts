@@ -21,7 +21,10 @@ export class AddCharacterRequestDto{
 }
 
 export class AddCharacterReturnDto{
-    code: number;
-    success : boolean;
-    request: object;
+    name: string;
+    hitPoints: number;
+    strength: number;
+    defence: number;
+    intelligence: number;
+    class: string;
 }

@@ -44,10 +44,10 @@ export class CharactersController {
         //check if the response returns null
         if (response === null){
             console.log(response);
-            response = {
+            var errorResponse = {
                 errorMessage: 'Id did not match any character',
             }
-            throw new NotFoundException(response);
+            throw new NotFoundException(errorResponse);
         }
 
         return(response);

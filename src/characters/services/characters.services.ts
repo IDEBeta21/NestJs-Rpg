@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, RequestTimeoutException } from "@nestjs/common";
 import { readFile, writeFile } from "fs/promises";
-import { AddCharacterRequestDto } from "../dtos/add-character.dto";
+import { AddCharacterRequestDto, AddCharacterReturnDto } from "../dtos/add-character.dto";
 import { Character } from "../models/character.model";
 
 @Injectable()
@@ -37,6 +37,21 @@ export class CharactersService {
         const contents = await readFile('characters.json', 'utf8')
         const characters = JSON.parse(contents);
 
-        return characters[id] || null;
+        const returnBody = new AddCharacterReturnDto();
+
+        const character = characters[id] || null
+
+        if(character != null){
+            returnBody.name = character.name;
+            returnBody.hitPoints = character.hitPoints;
+            returnBody.strength = character.strength;
+            returnBody.defence = character.defence;
+            returnBody.intelligence = character.intelligence;
+            returnBody.class = character.class;
+
+            return returnBody;
+        }
+
+        return null;
     }
 }
