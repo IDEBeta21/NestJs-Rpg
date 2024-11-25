@@ -66,26 +66,27 @@ export class CharactersService {
         await writeFile('characters.json', JSON.stringify(characters, null, 2));
     }
 
-    async getCharacterById(id: string){
-        const contents = await readFile('characters.json', 'utf8')
-        const characters = JSON.parse(contents);
+    async getCharacterById(id: number){
+        return this.characterRepository.findOne({where: {id}});
+        // const contents = await readFile('characters.json', 'utf8')
+        // const characters = JSON.parse(contents);
 
-        const returnBody = new AddCharacterReturnDto();
+        // const returnBody = new AddCharacterReturnDto();
 
-        const character = characters[id] || null
+        // const character = characters[id] || null
 
-        // Manually assign each property to returnBody
-        if(character != null){
-            returnBody.name = character.name;
-            returnBody.hitPoints = character.hitPoints;
-            returnBody.strength = character.strength;
-            returnBody.defence = character.defence;
-            returnBody.intelligence = character.intelligence;
-            returnBody.class = character.class;
+        // // Manually assign each property to returnBody
+        // if(character != null){
+        //     returnBody.name = character.name;
+        //     returnBody.hitPoints = character.hitPoints;
+        //     returnBody.strength = character.strength;
+        //     returnBody.defence = character.defence;
+        //     returnBody.intelligence = character.intelligence;
+        //     returnBody.class = character.class;
 
-            return returnBody;
-        }
+        //     return returnBody;
+        // }
 
-        return null;
+        // return null;
     }
 }

@@ -37,7 +37,7 @@ export class CharactersController {
     }
 
     @Get('GetCharacterById/:id')
-    async getCharacterById(@Param('id') id: string){
+    async getCharacterById(@Param('id') id: number){
         var response = await this.characterService.getCharacterById(id);
         console.log(response);
 

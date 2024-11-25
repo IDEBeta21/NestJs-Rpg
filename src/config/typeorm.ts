@@ -9,10 +9,8 @@ const config = {
     username: 'postgres',
     password: 'postgrepass890',
     database: 'nestjs_rpgdb',
-    // entities: ["src/**/*.entity{.ts,.js}"],
-    // cli:{
-    //     migrations: ["src/migrations/**/*{.ts,.js}"]
-    // },
+    entities: ["dist/**/*.entity{.ts,.js}"],
+    migrations: ["dist/migrations/*{.ts,.js}"],
     autoLoadEntities: true,
     synchronize: false,
 }
