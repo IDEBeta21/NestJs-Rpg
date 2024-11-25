@@ -4,12 +4,12 @@ import {
     Body, Param, 
     NotFoundException 
 } from '@nestjs/common';
-import { AddCharacterRequestDto } from '../dtos/add-character.dto';
-import { CharactersService } from '../services/characters.services';
+import { AddCharacterRequestDto } from './dtos/add-character.dto';
+import { CharactersService } from './characters.services';
 
 @Controller('api/Character')
 export class CharactersController {
-    constructor(private characterService: CharactersService){}
+    constructor(private readonly characterService: CharactersService){}
 
     @Get('GetAllCharacters')
     async getAllCharacters(){

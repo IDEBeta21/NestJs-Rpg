@@ -1,36 +1,48 @@
 import { Injectable, RequestTimeoutException } from "@nestjs/common";
 import { readFile, writeFile } from "fs/promises";
-import { AddCharacterRequestDto, AddCharacterReturnDto } from "../dtos/add-character.dto";
-import { GetAllCharactersReturnDto } from "../dtos/get-all-character.dto";
-import { Character } from "../models/character.model";
+import { AddCharacterRequestDto, AddCharacterReturnDto } from "./dtos/add-character.dto";
+import { GetAllCharactersReturnDto } from "./dtos/get-all-character.dto";
+import { Character } from "./models/character.model";
+import { Character as characterEnt } from "./entities/character.entity";
+
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class CharactersService {
+
+    constructor(
+        @InjectRepository(characterEnt)
+        private readonly characterRepository: Repository<characterEnt>,
+      ) {}
+    
+
     async getAllCharacters(){
-        const contents = await readFile('characters.json', 'utf8')
-        const characters = JSON.parse(contents);
+        return this.characterRepository.find();
+        // const contents = await readFile('characters.json', 'utf8')
+        // const characters = JSON.parse(contents);
 
-        const objCharacterReturn: GetAllCharactersReturnDto[] = [];
+        // const objCharacterReturn: GetAllCharactersReturnDto[] = [];
 
-        // Iterate over each character and create a simplified DTO without the id
-        for (const key in characters) {
-            if (characters.hasOwnProperty(key)) {
-                const character = characters[key];
-                const characterDto = new GetAllCharactersReturnDto();
+        // // Iterate over each character and create a simplified DTO without the id
+        // for (const key in characters) {
+        //     if (characters.hasOwnProperty(key)) {
+        //         const character = characters[key];
+        //         const characterDto = new GetAllCharactersReturnDto();
 
-                // Manually assign each property to characterDto
-                characterDto.name = character.name;
-                characterDto.hitPoints = character.hitPoints;
-                characterDto.strength = character.strength;
-                characterDto.defence = character.defence;
-                characterDto.intelligence = character.intelligence;
-                characterDto.class = character.class;
+        //         // Manually assign each property to characterDto
+        //         characterDto.name = character.name;
+        //         characterDto.hitPoints = character.hitPoints;
+        //         characterDto.strength = character.strength;
+        //         characterDto.defence = character.defence;
+        //         characterDto.intelligence = character.intelligence;
+        //         characterDto.class = character.class;
 
-                objCharacterReturn.push(characterDto);
-            }
-        }
+        //         objCharacterReturn.push(characterDto);
+        //     }
+        // }
 
-        return objCharacterReturn;
+        // return objCharacterReturn;
     }
 
     async AddCharacter(reqBody: AddCharacterRequestDto){
