@@ -32,6 +32,13 @@
 $ npm install
 ```
 
+## Run docker and database mirgation
+```bash
+$ docker compose up -d
+
+$ npm run migration:run
+```
+
 ## Compile and run the project
 
 ```bash
