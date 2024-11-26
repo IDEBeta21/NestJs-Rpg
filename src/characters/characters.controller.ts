@@ -8,7 +8,7 @@ import { AddCharacterRequestDto, AddCharacterReturnDto } from './dtos/add-charac
 import { GetAllCharactersReturnDto } from './dtos/get-all-character.dto';
 import { GetCharacterByIdReturnDto } from './dtos/get-character-by-id';
 import { CharactersService } from './characters.services';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('api/Character')
 export class CharactersController {
