@@ -4,19 +4,19 @@ import {
     Body, Param, 
     NotFoundException 
 } from '@nestjs/common';
-import { AddCharacterRequestDto } from '../dtos/add-character.dto';
-import { CharactersService } from '../services/characters.services';
+import { AddCharacterRequestDto } from './dtos/add-character.dto';
+import { CharactersService } from './characters.services';
 
 @Controller('api/Character')
 export class CharactersController {
-    constructor(private characterService: CharactersService){}
+    constructor(private readonly characterService: CharactersService){}
 
     @Get('GetAllCharacters')
     async getAllCharacters(){
         var response = await this.characterService.getAllCharacters();
 
         //check if the response returns empty object
-        if (JSON.stringify(response) === '{}'){
+        if (response == null){
             console.log(response);
             var errorResponse = {
                 errorMessage: 'No character exist',
@@ -30,19 +30,18 @@ export class CharactersController {
 
     @Post('AddCharacter')
     async addCharacters(@Body() reqBody: AddCharacterRequestDto){
-        await this.characterService.AddCharacter(reqBody);
-        var response = await this.characterService.getAllCharacters();
+        var response = await this.characterService.AddCharacter(reqBody);
         console.log(response);
         return response;
     }
 
     @Get('GetCharacterById/:id')
-    async getCharacterById(@Param('id') id: string){
+    async getCharacterById(@Param('id') id: number){
         var response = await this.characterService.getCharacterById(id);
         console.log(response);
 
         //check if the response returns null
-        if (response === null){
+        if (response == null){
             console.log(response);
             var errorResponse = {
                 errorMessage: 'Id did not match any character',
