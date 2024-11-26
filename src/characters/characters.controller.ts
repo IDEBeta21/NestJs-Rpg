@@ -4,14 +4,19 @@ import {
     Body, Param, 
     NotFoundException 
 } from '@nestjs/common';
-import { AddCharacterRequestDto } from './dtos/add-character.dto';
+import { AddCharacterRequestDto, AddCharacterReturnDto } from './dtos/add-character.dto';
+import { GetAllCharactersReturnDto } from './dtos/get-all-character.dto';
+import { GetCharacterByIdReturnDto } from './dtos/get-character-by-id';
 import { CharactersService } from './characters.services';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('api/Character')
 export class CharactersController {
     constructor(private readonly characterService: CharactersService){}
 
     @Get('GetAllCharacters')
+    @ApiOperation({ summary: 'Retrieve all characters' })
+    @ApiResponse({ status: 200, description: 'List of all characters', type: [GetAllCharactersReturnDto] })
     async getAllCharacters(){
         var response = await this.characterService.getAllCharacters();
 
@@ -29,6 +34,8 @@ export class CharactersController {
     }
 
     @Post('AddCharacter')
+    @ApiOperation({ summary: 'Add single character' })
+    @ApiResponse({ status: 200, description: 'List of all characters', type: [AddCharacterReturnDto] })
     async addCharacters(@Body() reqBody: AddCharacterRequestDto){
         var response = await this.characterService.AddCharacter(reqBody);
         console.log(response);
@@ -36,6 +43,8 @@ export class CharactersController {
     }
 
     @Get('GetCharacterById/:id')
+    @ApiOperation({ summary: 'Return info for a single character' })
+    @ApiResponse({ status: 200, description: 'Single character information', type: GetCharacterByIdReturnDto })
     async getCharacterById(@Param('id') id: number){
         var response = await this.characterService.getCharacterById(id);
         console.log(response);
