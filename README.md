@@ -48,6 +48,8 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
+#To access swagger open http://localhost:3000/swagger on your browser
+
 # production mode
 $ npm run start:prod
 ```
