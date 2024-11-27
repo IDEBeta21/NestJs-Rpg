@@ -4,12 +4,12 @@ services:
     image: postgres:16
     container_name: nestjs-rpgdb
     ports:
-      - "5434:5434"
+      - "5435:5435"
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "psqladminpass"
       POSTGRES_DB: "nestjs_rpgdb"
-      PGPORT: 5434
+      PGPORT: 5435
     volumes:
       - postgres_data:/var/lib/postgresql/data
 volumes:
