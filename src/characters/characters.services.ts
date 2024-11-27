@@ -1,14 +1,11 @@
-import { Injectable, RequestTimeoutException } from "@nestjs/common";
-import { readFile, writeFile } from "fs/promises";
+import { Injectable } from "@nestjs/common";
 import { AddCharacterRequestDto, AddCharacterReturnDto } from "./dtos/add-character.dto";
 import { GetCharacterByIdReturnDto } from "./dtos/get-character-by-id";
 import { GetAllCharactersReturnDto } from "./dtos/get-all-character.dto";
-import { Character } from "./models/character.model";
 import { Character as characterEnt } from "./entities/character.entity";
 
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { connected } from "process";
 
 @Injectable()
 export class CharactersService {
@@ -36,7 +33,7 @@ export class CharactersService {
         }));
     }
 
-    async AddCharacter(reqBody: AddCharacterRequestDto): Promise<AddCharacterRequestDto[]>{
+    async AddCharacter(reqBody: AddCharacterRequestDto): Promise<AddCharacterReturnDto[]>{
         const character = this.characterRepository.create(reqBody);
         await this.characterRepository.save(character);
         
