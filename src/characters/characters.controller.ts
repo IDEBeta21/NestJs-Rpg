@@ -3,14 +3,18 @@ import {
     Get, Post, 
     Body, Param, 
     NotFoundException, 
-    Put
+    Put,
+    Delete
 } from '@nestjs/common';
+
 import { AddCharacterRequestDto, AddCharacterReturnDto } from './dtos/add-character.dto';
 import { GetAllCharactersReturnDto } from './dtos/get-all-character.dto';
 import { GetCharacterByIdReturnDto } from './dtos/get-character-by-id';
+import { UpdateCharacterRequestDto, UpdateCharacterReturnDto } from './dtos/update-character.dto';
+import { DeleteCharacterReturnDto } from './dtos/delete-character.dto';
+
 import { CharactersService } from './characters.services';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { UpdateCharacterRequestDto } from './dtos/update-character.dto';
 
 @Controller('api/Character')
 export class CharactersController {
@@ -65,9 +69,28 @@ export class CharactersController {
 
     @Put('UpdateCharacter/:id')
     @ApiOperation({ summary: 'Update single character with ID' })
-    @ApiResponse({ status: 200, description: 'Update character information', type: GetCharacterByIdReturnDto })
+    @ApiResponse({ status: 200, description: 'Update character information', type: UpdateCharacterReturnDto })
     async updateCharacter(@Param('id') id: number, @Body() reqBody:UpdateCharacterRequestDto){
         var response = await this.characterService.updateCharacter(id, reqBody);
+        console.log(response);
+
+        //check if the response returns null
+        if (response == null){
+            console.log(response);
+            var errorResponse = {
+                errorMessage: 'Id did not match any character',
+            }
+            throw new NotFoundException(errorResponse);
+        }
+
+        return(response);
+    }
+
+    @Delete('DeleteCharacter/:id')
+    @ApiOperation({ summary: 'Delete single character with ID' })
+    @ApiResponse({ status: 200, description: 'Delete character information', type: DeleteCharacterReturnDto })
+    async deleteCharacter(@Param('id') id: number){
+        var response = await this.characterService.deleteCharacter(id);
         console.log(response);
 
         //check if the response returns null

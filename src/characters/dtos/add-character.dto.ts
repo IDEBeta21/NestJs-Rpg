@@ -28,6 +28,9 @@ export class AddCharacterRequestDto{
 }
 
 export class AddCharacterReturnDto{
+    @ApiProperty({ example: 1, description: 'Character ID' })
+    id: number;
+
     @ApiProperty({ example: 'Devian', description: 'The name of the character' })
     name: string;
 

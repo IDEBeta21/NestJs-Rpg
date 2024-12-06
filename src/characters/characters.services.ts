@@ -1,19 +1,22 @@
 import { Injectable } from "@nestjs/common";
+
 import { AddCharacterRequestDto, AddCharacterReturnDto } from "./dtos/add-character.dto";
 import { GetCharacterByIdReturnDto } from "./dtos/get-character-by-id";
 import { GetAllCharactersReturnDto } from "./dtos/get-all-character.dto";
-import { Character as characterEnt } from "./entities/character.entity";
+import { UpdateCharacterReturnDto, UpdateCharacterRequestDto } from "./dtos/update-character.dto";
+import { DeleteCharacterReturnDto } from "./dtos/delete-character.dto";
+
+import { Character } from "./entities/character.entity";
 
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { UpdateCharacterReturnDto, UpdateCharacterRequestDto } from "./dtos/update-character.dto";
 
 @Injectable()
 export class CharactersService {
 
     constructor(
-        @InjectRepository(characterEnt)
-        private readonly characterRepository: Repository<characterEnt>,
+        @InjectRepository(Character)
+        private readonly characterRepository: Repository<Character>,
       ) {}
     
 
@@ -45,6 +48,7 @@ export class CharactersService {
             order: { id: 'ASC'  }
         });
         return characters.map(c => ({
+            id: c.id,
             name: c.name,
             hitPoints: c.hitPoints,
             strength: c.strength,
@@ -91,4 +95,25 @@ export class CharactersService {
         };
     }
 
+    async deleteCharacter(id: number): Promise<DeleteCharacterReturnDto[]>{
+        await this.characterRepository.delete(id);
+
+        const characters = await this.characterRepository.find({
+            order: { id: 'ASC' }
+        });
+
+        if(characters.length == 0){
+            return null;
+        }
+
+        return characters.map(c => ({
+            id: c.id,
+            name: c.name,
+            hitPoints: c.hitPoints,
+            strength: c.strength,
+            defence:  c.defence,
+            intelligence: c.intelligence,
+            class: c.class
+        }));
+    }
 }
