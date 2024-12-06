@@ -2,13 +2,15 @@ import {
     Controller, 
     Get, Post, 
     Body, Param, 
-    NotFoundException 
+    NotFoundException, 
+    Put
 } from '@nestjs/common';
 import { AddCharacterRequestDto, AddCharacterReturnDto } from './dtos/add-character.dto';
 import { GetAllCharactersReturnDto } from './dtos/get-all-character.dto';
 import { GetCharacterByIdReturnDto } from './dtos/get-character-by-id';
 import { CharactersService } from './characters.services';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { UpdateCharacterRequestDto } from './dtos/update-character.dto';
 
 @Controller('api/Character')
 export class CharactersController {
@@ -18,7 +20,7 @@ export class CharactersController {
     @ApiOperation({ summary: 'Retrieve all characters' })
     @ApiResponse({ status: 200, description: 'List of all characters', type: [GetAllCharactersReturnDto] })
     async getAllCharacters(){
-        var response = await this.characterService.getAllCharacters();
+        var response = (await this.characterService.getAllCharacters());
 
         //check if the response returns empty object
         if (response == null){
@@ -47,6 +49,25 @@ export class CharactersController {
     @ApiResponse({ status: 200, description: 'Single character information', type: GetCharacterByIdReturnDto })
     async getCharacterById(@Param('id') id: number){
         var response = await this.characterService.getCharacterById(id);
+        console.log(response);
+
+        //check if the response returns null
+        if (response == null){
+            console.log(response);
+            var errorResponse = {
+                errorMessage: 'Id did not match any character',
+            }
+            throw new NotFoundException(errorResponse);
+        }
+
+        return(response);
+    }
+
+    @Put('UpdateCharacter/:id')
+    @ApiOperation({ summary: 'Update single character with ID' })
+    @ApiResponse({ status: 200, description: 'Update character information', type: GetCharacterByIdReturnDto })
+    async updateCharacter(@Param('id') id: number, @Body() reqBody:UpdateCharacterRequestDto){
+        var response = await this.characterService.updateCharacter(id, reqBody);
         console.log(response);
 
         //check if the response returns null
