@@ -7,6 +7,8 @@ import { Character as characterEnt } from "./entities/character.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { UpdateCharacterReturnDto, UpdateCharacterRequestDto } from "./dtos/update-character.dto";
+import { DeleteCharacterReturnDto } from "./dtos/delete-character.dto";
+import { retry } from "rxjs";
 
 @Injectable()
 export class CharactersService {
@@ -91,4 +93,25 @@ export class CharactersService {
         };
     }
 
+    async deleteCharacter(id: number): Promise<DeleteCharacterReturnDto[]>{
+        await this.characterRepository.delete(id);
+
+        const characters = await this.characterRepository.find({
+            order: { id: 'ASC' }
+        });
+
+        if(characters.length == 0){
+            return null;
+        }
+
+        return characters.map(c => ({
+            id: c.id,
+            name: c.name,
+            hitPoints: c.hitPoints,
+            strength: c.strength,
+            defence:  c.defence,
+            intelligence: c.intelligence,
+            class: c.class
+        }));
+    }
 }
