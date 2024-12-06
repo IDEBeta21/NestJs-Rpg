@@ -6,13 +6,15 @@ import {
     Put,
     Delete
 } from '@nestjs/common';
+
 import { AddCharacterRequestDto, AddCharacterReturnDto } from './dtos/add-character.dto';
 import { GetAllCharactersReturnDto } from './dtos/get-all-character.dto';
 import { GetCharacterByIdReturnDto } from './dtos/get-character-by-id';
-import { CharactersService } from './characters.services';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { UpdateCharacterRequestDto, UpdateCharacterReturnDto } from './dtos/update-character.dto';
 import { DeleteCharacterReturnDto } from './dtos/delete-character.dto';
+
+import { CharactersService } from './characters.services';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('api/Character')
 export class CharactersController {
