@@ -20,5 +20,7 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
+
+  console.log("View Swagger in: http://localhost:3000/swagger")
 }
 bootstrap();
