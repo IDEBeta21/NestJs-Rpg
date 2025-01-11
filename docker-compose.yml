@@ -11,5 +11,19 @@ services:
       PGPORT: 5435
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  nestjs-rpg-api:
+    image: nestjs-rpg
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nestjs-rpg-api
+    ports:
+      - '3001:3001'
+    depends_on:
+      - nestjs-rpgdb
+    volumes:
+      - ./src:/app/src
+
 volumes:
   postgres_data:

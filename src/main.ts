@@ -2,10 +2,19 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as fs from 'fs';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const httpsOptions = {
+    key: fs.readFileSync('./src/cert/key.pem'),
+    cert: fs.readFileSync('./src/cert/cert.pem'),
+  };
+
+  const app = await NestFactory.create(
+    AppModule,
+    { httpsOptions },
+  );
   app.useGlobalPipes(
     new ValidationPipe()
   );
@@ -19,8 +28,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3001);
 
-  console.log("View Swagger in: http://localhost:3000/swagger")
+  console.log("View Swagger in: https://localhost:3001/swagger")
 }
 bootstrap();

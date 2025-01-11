@@ -3,7 +3,8 @@ import { DataSource, DataSourceOptions } from "typeorm";
 
 const config = {
     type: 'postgres',
-    host: 'localhost',
+    // host: 'localhost', //for running in local
+    host: 'nestjs-rpgdb', //for running in docker
     port: 5435,
     username: 'postgres',
     password: 'psqladminpass',
