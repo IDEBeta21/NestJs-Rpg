@@ -19,8 +19,9 @@ services:
       dockerfile: Dockerfile
     container_name: nestjs-rpg-api
     environment:
-      - PORT=3001
       - NODE_ENV=dev
+      - PORT=3001
+      - HOST=nestjs-rpgdb
     ports:
       - '3001:3001'
     depends_on:
