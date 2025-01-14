@@ -1,16 +1,9 @@
 import { registerAs } from "@nestjs/config";
 import { DataSource, DataSourceOptions } from "typeorm";
 
-var db_host;
-if(process.env.NODE_ENV == 'dev'){
-    db_host = 'nestjs-rpgdb'
-}else{
-    db_host = 'localhost'
-}
-
 const config = {
     type: 'postgres',
-    host: db_host, 
+    host: process.env.HOST ?? 'localhost', 
     port: 5435,
     username: 'postgres',
     password: 'psqladminpass',
