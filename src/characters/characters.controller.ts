@@ -35,7 +35,6 @@ export class CharactersController {
             throw new NotFoundException(errorResponse);
         }
 
-        console.log(response);
         return response;
     }
 
@@ -44,7 +43,6 @@ export class CharactersController {
     @ApiResponse({ status: 200, description: 'List of all characters', type: [AddCharacterReturnDto] })
     async addCharacters(@Body() reqBody: AddCharacterRequestDto){
         var response = await this.characterService.AddCharacter(reqBody);
-        console.log(response);
         return response;
     }
 
@@ -53,11 +51,9 @@ export class CharactersController {
     @ApiResponse({ status: 200, description: 'Single character information', type: GetCharacterByIdReturnDto })
     async getCharacterById(@Param('id') id: number){
         var response = await this.characterService.getCharacterById(id);
-        console.log(response);
 
         //check if the response returns null
         if (response == null){
-            console.log(response);
             var errorResponse = {
                 errorMessage: 'Id did not match any character',
             }
@@ -72,11 +68,9 @@ export class CharactersController {
     @ApiResponse({ status: 200, description: 'Update character information', type: UpdateCharacterReturnDto })
     async updateCharacter(@Param('id') id: number, @Body() reqBody:UpdateCharacterRequestDto){
         var response = await this.characterService.updateCharacter(id, reqBody);
-        console.log(response);
 
         //check if the response returns null
         if (response == null){
-            console.log(response);
             var errorResponse = {
                 errorMessage: 'Id did not match any character',
             }
@@ -91,11 +85,9 @@ export class CharactersController {
     @ApiResponse({ status: 200, description: 'Delete character information', type: DeleteCharacterReturnDto })
     async deleteCharacter(@Param('id') id: number){
         var response = await this.characterService.deleteCharacter(id);
-        console.log(response);
 
         //check if the response returns null
         if (response == null){
-            console.log(response);
             var errorResponse = {
                 errorMessage: 'Id did not match any character',
             }

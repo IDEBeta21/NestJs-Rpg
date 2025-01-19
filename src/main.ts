@@ -5,9 +5,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create(
-    AppModule,
-  );
+  const app = await NestFactory.create(AppModule);
+  
   app.useGlobalPipes(
     new ValidationPipe()
   );
@@ -24,9 +23,9 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3000);
 
   if(process.env.NODE_ENV == 'dev'){
-    console.log("View Swagger in: http://localhost:3001/swagger")
+    console.log("\nView Swagger in: \x1b[34mhttp://localhost:3001/swagger\x1b[0m. Happy Codings!!")
   }else{
-    console.log("View Swagger in: http://localhost:3000/swagger")
+    console.log("\nView Swagger in: \x1b[34mhttp://localhost:3000/swagger\x1b[0m. Happy Codings!!")
   }
 }
 bootstrap();
