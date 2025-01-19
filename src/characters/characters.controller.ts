@@ -28,7 +28,6 @@ export class CharactersController {
 
         //check if the response returns empty object
         if (response == null){
-            console.log(response);
             var errorResponse = {
                 errorMessage: 'No character exist',
             }

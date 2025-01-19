@@ -1,7 +1,7 @@
 services:
   nestjs-rpgdb:
-    image: postgres:16
-    container_name: nestjs-rpgdb
+    image: postgres:latest
+    container_name: nestjs-rpg-db
     ports:
       - "5435:5435"
     environment:
@@ -21,7 +21,7 @@ services:
     environment:
       - NODE_ENV=dev
       - PORT=3001
-      - HOST=nestjs-rpgdb
+      - HOST=nestjs-rpg-db
     ports:
       - '3001:3001'
     depends_on:
