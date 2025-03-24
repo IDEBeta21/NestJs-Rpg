@@ -38,15 +38,24 @@ Please change the migration:generate and migration:create in package.json if you
 - ```"migration:generate": "npm run typeorm -- -d ./src/config/typeorm.ts migration:generate ./src/migrations/%npm_config_name%"```
 - ```"migration:create": "npm run typeorm -- migration:create ./src/migrations/%npm_config_name%"```
 
-## Run docker and database mirgation
+## Run docker
 ```bash
-$ docker compose up -d
-
+$ docker compose up -d --build
+# Note that the project will run but will return an error if used since the database is yet to be created
+```
+## Run migration
+### Note: You can choose between these 2 methods for running the database migration 
+#### 1. Generating the migration file and manually writing the script 
+```bash
 $ run migration:create --name=<MigrationName>
 # Change the <MigrationName> to any name that you want
 # Navigate to src/migrations and copy the up() and down() from 1732550243710-InitMigrationTest1.ts to the new generated migration script
 
 $ npm run migration:run
+```
+#### 2. Reusing the already generated miration file (src/migration) with one command
+```bash
+$ npm run migration:reset
 ```
 
 ## Compile and run the project
