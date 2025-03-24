@@ -32,9 +32,19 @@
 $ npm install
 ```
 
+## NOTE:
+---
+Please change the migration:generate and migration:create in package.json if you are using Windows OS to the ff:
+- ```"migration:generate": "npm run typeorm -- -d ./src/config/typeorm.ts migration:generate ./src/migrations/%npm_config_name%"```
+- ```"migration:create": "npm run typeorm -- migration:create ./src/migrations/%npm_config_name%"```
+
 ## Run docker and database mirgation
 ```bash
 $ docker compose up -d
+
+$ run migration:create --name=<MigrationName>
+# Change the <MigrationName> to any name that you want
+# Navigate to src/migrations and copy the up() and down() from 1732550243710-InitMigrationTest1.ts to the new generated migration script
 
 $ npm run migration:run
 ```
@@ -47,8 +57,6 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
-
-#To access swagger open http://localhost:3000/swagger on your browser
 
 # production mode
 $ npm run start:prod
