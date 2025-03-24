@@ -53,12 +53,13 @@ $ run migration:create --name=<MigrationName>
 
 $ npm run migration:run
 ```
-#### 2. Reusing the already generated miration file (src/migration) with one command
+#### 2. Reusing the already generated miration file (src/migrations) with one command
 ```bash
 $ npm run migration:reset
+# You can now test the dockerized webapi after running this command
 ```
 
-## Compile and run the project
+## Compile and run the project 
 
 ```bash
 # development
