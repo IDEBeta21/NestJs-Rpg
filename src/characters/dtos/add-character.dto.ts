@@ -28,9 +28,6 @@ export class AddCharacterRequestDto{
 }
 
 export class AddCharacterReturnDto{
-    @ApiProperty({ example: 1, description: 'Character ID' })
-    id: number;
-
     @ApiProperty({ example: 'Devian', description: 'The name of the character' })
     name: string;
 
@@ -48,4 +45,8 @@ export class AddCharacterReturnDto{
 
     @ApiProperty({ example: 'Mage', description: 'Class of the character' })
     class: string;
+
+    constructor(partial: Partial<AddCharacterReturnDto>) {
+        Object.assign(this, partial);
+    }
 }

@@ -29,15 +29,16 @@ export class CharactersService {
             return null;
         }
 
-        return characters.map(c => ({
-            id: c.id,
-            name: c.name,
-            hitPoints: c.hitPoints,
-            strength: c.strength,
-            defence:  c.defence,
-            intelligence: c.intelligence,
-            class: c.class
-        }));
+        return characters.map(c => 
+            new GetAllCharactersReturnDto({
+                name: c.name,
+                hitPoints: c.hitPoints,
+                strength: c.strength,
+                defence:  c.defence,
+                intelligence: c.intelligence,
+                class: c.class
+            })
+        );
     }
 
     async AddCharacter(reqBody: AddCharacterRequestDto): Promise<AddCharacterReturnDto[]>{
@@ -47,15 +48,17 @@ export class CharactersService {
         const characters =  await this.characterRepository.find({
             order: { id: 'ASC'  }
         });
-        return characters.map(c => ({
-            id: c.id,
-            name: c.name,
-            hitPoints: c.hitPoints,
-            strength: c.strength,
-            defence:  c.defence,
-            intelligence: c.intelligence,
-            class: c.class
-        }));
+
+        return characters.map(c => 
+            new AddCharacterReturnDto({
+                name: c.name,
+                hitPoints: c.hitPoints,
+                strength: c.strength,
+                defence:  c.defence,
+                intelligence: c.intelligence,
+                class: c.class
+            })
+        );
     }
 
     async getCharacterById(id: number): Promise<GetCharacterByIdReturnDto> {

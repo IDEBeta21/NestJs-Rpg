@@ -1,9 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class GetAllCharactersReturnDto{
-    @ApiProperty({ example: 1, description: 'Character ID' })
-    id: number;
-
     @ApiProperty({ example: 'Devian', description: 'The name of the character' })
     name: string;
 
@@ -21,4 +18,10 @@ export class GetAllCharactersReturnDto{
 
     @ApiProperty({ example: 'Mage', description: 'Class of the character' })
     class: string;
+
+    constructor(partial: Partial<GetAllCharactersReturnDto>) {
+        Object.assign(this, partial);
+    }
+
 }
+
